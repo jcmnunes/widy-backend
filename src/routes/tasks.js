@@ -5,6 +5,6 @@ const requireLogin = require('../middlewares/requireLogin');
 
 router.post('/', requireLogin, catchErrors(tasksController.createTask));
 router.get('/', requireLogin, catchErrors(tasksController.getTasks));
-router.patch('/:id', requireLogin, catchErrors(tasksController.patchTask));
+router.put('/:id', requireLogin, catchErrors(tasksController.updateTask));
 
 module.exports = router;

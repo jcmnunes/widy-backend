@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 const mongodbErrorHandler = require('mongoose-mongodb-errors');
-// const Joi = require('joi');
+const Joi = require('joi');
 
 const taskSchema = new mongoose.Schema(
   {
     title: {
       type: String,
       trim: true,
-      minlength: 5,
+      minlength: 1,
       maxlength: 50,
     },
   },
@@ -20,26 +20,17 @@ taskSchema.plugin(mongodbErrorHandler);
 
 const Task = mongoose.model('Task', taskSchema);
 
-// function validateTask(user) {
-//   const schema = {
-//     name: Joi.string()
-//       .min(5)
-//       .max(50)
-//       .required(),
-//     email: Joi.string()
-//       .min(5)
-//       .max(255)
-//       .required()
-//       .email(),
-//     password: Joi.string()
-//       .min(5)
-//       .max(255)
-//       .required(),
-//   };
+function validateTask(task) {
+  const schema = {
+    title: Joi.string()
+      .min(1)
+      .max(50)
+      .required(),
+  };
 
-//   return Joi.validate(user, schema);
-// }
+  return Joi.validate(task, schema);
+}
 
 exports.Task = Task;
 exports.taskSchema = taskSchema;
-// exports.validate = validateUser;
+exports.validate = validateTask;
