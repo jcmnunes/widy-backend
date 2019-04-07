@@ -1,6 +1,6 @@
 {
   "name": "widy",
-  "version": "1.0.0",
+  "version": "0.1-alpha.0",
   "description": "widy app",
   "main": "index.js",
   "scripts": {
