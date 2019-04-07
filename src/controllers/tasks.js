@@ -1,5 +1,5 @@
 const { Day } = require('../models/Day');
-const { Task } = require('../models/Task');
+const { Task, validate } = require('../models/Task');
 
 /**
  * Creates a new task
@@ -7,8 +7,11 @@ const { Task } = require('../models/Task');
  * endpoint ➜ POST /api/tasks
  */
 exports.createTask = async (req, res) => {
+  const { error } = validate(req.body.payload);
+  if (error) return res.status(400).json({ error: error.details[0].message });
+
   const {
-    body: { dayId, sectionId, title },
+    body: { dayId, sectionId, payload },
     userId,
   } = req;
 
@@ -16,12 +19,12 @@ exports.createTask = async (req, res) => {
     _id: dayId,
     belongsTo: userId,
   });
-  if (!day) return res.status(404).json({ message: 'Day not found' });
+  if (!day) return res.status(404).json({ error: 'Day not found' });
 
   const section = day.sections.id(sectionId);
-  if (!section) return res.status(404).json({ message: 'Section not found' });
+  if (!section) return res.status(404).json({ error: 'Section not found' });
 
-  const task = new Task({ title });
+  const task = new Task(payload);
   section.tasks.push(task);
   await day.save();
   res.json({ task });
@@ -42,10 +45,10 @@ exports.getTasks = async (req, res) => {
     _id: dayId,
     belongsTo: userId,
   });
-  if (!day) return res.status(404).json({ message: 'Day not found' });
+  if (!day) return res.status(404).json({ error: 'Day not found' });
 
   const section = day.sections.id(sectionId);
-  if (!section) return res.status(404).json({ message: 'Section not found' });
+  if (!section) return res.status(404).json({ error: 'Section not found' });
 
   res.json(section.tasks);
 };
@@ -55,4 +58,24 @@ exports.getTasks = async (req, res) => {
  *
  * endpoint ➜ PUT /api/tasks/:id
  */
-exports.patchTask = async (req, res) => {};
+exports.updateTask = async (req, res) => {
+  const {
+    body: { dayId, sectionId, payload },
+    userId,
+  } = req;
+
+  const day = await Day.findOne({
+    _id: dayId,
+    belongsTo: userId,
+  });
+  if (!day) return res.status(404).json({ error: 'Day not found' });
+
+  const section = day.sections.id(sectionId);
+  if (!section) return res.status(404).json({ error: 'Section not found' });
+
+  const task = section.tasks.id(req.params.id);
+  task.set(payload);
+
+  await day.save();
+  res.json({ message: '🥑' });
+};
