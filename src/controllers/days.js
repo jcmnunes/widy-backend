@@ -1,4 +1,3 @@
-const moment = require('moment');
 const { Day, validate } = require('../models/Day');
 const { Section } = require('../models/Section');
 
@@ -23,14 +22,13 @@ exports.createDay = async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).json({ message: error.details[0].message });
 
-  const dayISO = req.body.day;
-  const formatedDay = moment(dayISO).format('YYYY-MM-DD');
-  const existingDaysArray = await Day.find({ day: formatedDay, belongsTo: req.userId });
+  const { day } = req.body;
+  const existingDaysArray = await Day.find({ day, belongsTo: req.userId });
   if (existingDaysArray.length > 0) {
     return res.status(400).json({ message: 'Day exists' });
   }
-  const day = new Day({
-    day: moment(dayISO).format('YYYY-MM-DD'),
+  const newDay = new Day({
+    day,
     sections: [
       new Section({
         title: 'Plan',
@@ -47,7 +45,7 @@ exports.createDay = async (req, res) => {
     ],
     belongsTo: req.userId,
   });
-  const { _id, day: savedDay } = await day.save();
+  const { _id, day: savedDay } = await newDay.save();
   res.json({ day: { _id, day: savedDay }, message: '🥑' });
 };
 
