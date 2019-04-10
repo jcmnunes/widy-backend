@@ -10,6 +10,9 @@ const taskSchema = new mongoose.Schema(
       minlength: 1,
       maxlength: 50,
     },
+    notes: {
+      type: String,
+    },
   },
   /* gives us "createdAt" and "updatedAt" fields automatically */
   { timestamps: true },
@@ -26,6 +29,7 @@ function validateTask(task) {
       .min(1)
       .max(50)
       .required(),
+    notes: Joi.string().allow(''),
   };
 
   return Joi.validate(task, schema);
