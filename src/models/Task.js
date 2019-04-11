@@ -11,7 +11,7 @@ const taskSchema = new mongoose.Schema(
       maxlength: 50,
     },
     notes: {
-      type: String,
+      type: {}, // Setting String in here throws an error... This is a JSON string.
     },
   },
   /* gives us "createdAt" and "updatedAt" fields automatically */
