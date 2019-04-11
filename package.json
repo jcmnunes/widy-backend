@@ -1,6 +1,6 @@
 {
   "name": "widy-backend",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "widy app backend",
   "main": "index.js",
   "repository": {
