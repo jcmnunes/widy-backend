@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const mongodbErrorHandler = require('mongoose-mongodb-errors');
-const Joi = require('joi');
 const { sectionSchema } = require('./Section');
 
 const daySchema = new mongoose.Schema(
@@ -25,13 +24,4 @@ daySchema.plugin(mongodbErrorHandler);
 
 const Day = mongoose.model('Day', daySchema);
 
-function validateDay(dayData) {
-  const schema = {
-    day: Joi.date().iso(),
-  };
-
-  return Joi.validate(dayData, schema);
-}
-
 exports.Day = Day;
-exports.validate = validateDay;

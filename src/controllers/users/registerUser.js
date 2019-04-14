@@ -1,13 +1,34 @@
-const { User, validate } = require('../models/User');
 const bcrypt = require('bcrypt');
+const Joi = require('joi');
+const { User } = require('../../models/User');
 const _ = require('lodash');
+
+const validate = body => {
+  const schema = {
+    name: Joi.string()
+      .min(5)
+      .max(50)
+      .required(),
+    email: Joi.string()
+      .min(5)
+      .max(255)
+      .required()
+      .email(),
+    password: Joi.string()
+      .min(5)
+      .max(255)
+      .required(),
+  };
+
+  return Joi.validate(body, schema);
+};
 
 /**
  * Register a new user.
  *
  * endpoint ➜ POST /api/users
  */
-exports.registerUser = async (req, res) => {
+const registerUser = async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -23,12 +44,4 @@ exports.registerUser = async (req, res) => {
   res.send(_.pick(user, ['_id', 'name', 'email']));
 };
 
-/**
- * Gets the current logged in user data
- *
- * endpoint ➜ GET /api/users/me
- */
-exports.getMe = async (req, res) => {
-  const user = await User.findById(req.userId).select('-password');
-  res.send(user);
-};
+module.exports = registerUser;
