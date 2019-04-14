@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const catchErrors = require('../middlewares/catchErrors');
 const userController = require('../controllers/users');
+const catchErrors = require('../middlewares/catchErrors');
 const requireLogin = require('../middlewares/requireLogin');
 
 router.post('/', catchErrors(userController.registerUser));

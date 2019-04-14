@@ -1,12 +1,13 @@
 const router = require('express').Router();
 const catchErrors = require('../middlewares/catchErrors');
-const authController = require('../controllers/auth');
+const authControllers = require('../controllers/auth');
 const requireLogin = require('../middlewares/requireLogin');
+const confirmPasswords = require('../middlewares/confirmPasswords');
 
-router.post('/login', authController.login);
-router.get('/logout', authController.logout);
-router.get('/check', requireLogin, authController.check);
-router.post('/forgot', catchErrors(authController.forgot));
-router.post('/reset', authController.confirmPasswords, catchErrors(authController.reset));
+router.post('/login', authControllers.login);
+router.get('/logout', authControllers.logout);
+router.get('/check', requireLogin, authControllers.check);
+router.post('/forgot', catchErrors(authControllers.forgot));
+router.post('/reset', confirmPasswords, catchErrors(authControllers.reset));
 
 module.exports = router;

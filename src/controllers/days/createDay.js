@@ -1,24 +1,21 @@
-const { Day, validate } = require('../models/Day');
-const { Section } = require('../models/Section');
+const Joi = require('joi');
+const { Day } = require('../../models/Day');
+const { Section } = require('../../models/Section');
 
-/**
- * Gets the list of days
- *
- * endpoint ➜ GET /api/days
- */
-exports.getAllDays = async (req, res) => {
-  const days = await Day.find({ belongsTo: req.userId })
-    .select('day')
-    .sort({ day: 'desc' });
-  res.send(days);
+const validate = dayData => {
+  const schema = {
+    day: Joi.date().iso(),
+  };
+
+  return Joi.validate(dayData, schema);
 };
 
 /**
  * Creates a new day
  *
- * endpoint ➜ GET /api/days
+ * endpoint ➜ POST /api/days
  */
-exports.createDay = async (req, res) => {
+const createDay = async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).json({ message: error.details[0].message });
 
@@ -49,15 +46,4 @@ exports.createDay = async (req, res) => {
   res.json({ day: { _id, day: savedDay }, message: '🥑' });
 };
 
-/**
- * Gets a day by Id
- *
- * endpoint ➜ GET /api/days/:id
- */
-exports.getDay = async (req, res) => {
-  const day = await Day.findOne({
-    _id: req.params.id,
-    belongsTo: req.userId,
-  });
-  res.send(day);
-};
+module.exports = createDay;
