@@ -24,6 +24,8 @@ const getDay = async (req, res) => {
     _id: req.params.id,
     belongsTo: req.userId,
   });
+  if (!day) return res.status(404).json({ error: 'Day not found' });
+
   res.send(day);
 };
 

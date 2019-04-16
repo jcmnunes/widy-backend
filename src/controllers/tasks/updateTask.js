@@ -1,6 +1,5 @@
 const Joi = require('joi');
 const { Day } = require('../../models/Day');
-const { Task } = require('../../models/Task');
 
 Joi.objectId = require('joi-objectid')(Joi);
 
@@ -17,7 +16,7 @@ const validate = body => {
 /**
  * Updates a task
  *
- * endpoint ➜ POST /api/tasks
+ * endpoint ➜ PUT /api/tasks/:id
  */
 const updateTask = async (req, res) => {
   const { error } = validate(req.body);
@@ -37,10 +36,11 @@ const updateTask = async (req, res) => {
   const section = day.sections.id(sectionId);
   if (!section) return res.status(404).json({ error: 'Section not found' });
 
-  const task = new Task(payload);
-  section.tasks.push(task);
+  const task = section.tasks.id(req.params.id);
+  task.set(payload);
+
   await day.save();
-  res.json({ task });
+  res.json({ message: '🥑' });
 };
 
 module.exports = updateTask;
