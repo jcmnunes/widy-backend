@@ -7,5 +7,6 @@ router.post('/', requireLogin, catchErrors(tasksController.createTask));
 router.get('/', requireLogin, catchErrors(tasksController.getTasks));
 router.put('/move', requireLogin, catchErrors(tasksController.moveTask));
 router.put('/:id', requireLogin, catchErrors(tasksController.updateTask));
+router.delete('/:id', requireLogin, catchErrors(tasksController.deleteTask));
 
 module.exports = router;
