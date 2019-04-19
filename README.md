@@ -7,8 +7,8 @@
     <a href="https://github.com/styled-components/styled-components"><img src="https://img.shields.io/badge/style-%F0%9F%92%85%20styled--components-orange.svg?colorB=daa357&colorA=db748e" /></a>
 </div>
 
-This is the frontend repo of the Widy app (backend repo
-[here](https://github.com/jcmnunes/widy-backend))
+This is the backend repo of the Widy app (frontend repo
+[here](https://github.com/jcmnunes/widy-frontend))
 
 <div>
     <img src="https://raw.githubusercontent.com/jcmnunes/widy-frontend/master/src/images/eod_screenshot.png" width="800px">
