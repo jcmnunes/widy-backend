@@ -10,7 +10,7 @@
 This is the backend repo of the Widy app (frontend repo
 [here](https://github.com/jcmnunes/widy-frontend))
 
-<div>
+<div style="margin-bottom: 24px">
     <img src="https://raw.githubusercontent.com/jcmnunes/widy-frontend/master/src/images/eod_screenshot.png" width="800px">
 </div>
 
