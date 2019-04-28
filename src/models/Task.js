@@ -12,6 +12,13 @@ const taskSchema = new mongoose.Schema(
     notes: {
       type: {}, // Setting String in here throws an error... This is a JSON string.
     },
+    time: {
+      type: Number,
+    },
+    start: {
+      type: Date,
+      default: null,
+    },
   },
   /* gives us "createdAt" and "updatedAt" fields automatically */
   { timestamps: true },

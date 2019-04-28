@@ -49,6 +49,11 @@ const moveTask = async (req, res) => {
   if (fromSectionId === toSectionId) {
     fromSection.tasks = move(fromSection.tasks, fromIndex, toIndex);
   } else {
+    // Moving a task to the plan resets the time to zero
+    if (toSection.isPlan) {
+      task.time = 0;
+      task.start = null;
+    }
     fromSection.tasks = remove(fromSection.tasks, fromIndex);
     toSection.tasks = insert(toSection.tasks, toIndex, task);
   }

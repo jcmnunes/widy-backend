@@ -22,6 +22,15 @@ const daySchema = new mongoose.Schema(
 // The MongoDBErrorHandler plugin gives us a better 'unique' error
 daySchema.plugin(mongodbErrorHandler);
 
+daySchema.statics.getActiveTask = function(userId) {
+  return this.aggregate([
+    { $match: { belongsTo: mongoose.Types.ObjectId(userId) } },
+    { $unwind: '$sections' },
+    { $unwind: '$sections.tasks' },
+    { $match: { 'sections.tasks.start': { $ne: null } } },
+  ]);
+};
+
 const Day = mongoose.model('Day', daySchema);
 
 exports.Day = Day;

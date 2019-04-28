@@ -14,6 +14,8 @@ const validate = body => {
         .max(500)
         .required(),
       notes: Joi.object().allow(''),
+      time: Joi.number().required(),
+      start: Joi.date().allow(null),
     }),
   };
 

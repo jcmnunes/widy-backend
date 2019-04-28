@@ -8,6 +8,10 @@ const sectionSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    isPlan: {
+      type: Boolean,
+      default: false,
+    },
     tasks: [taskSchema],
   },
   /* gives us "createdAt" and "updatedAt" fields automatically */
