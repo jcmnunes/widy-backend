@@ -29,14 +29,17 @@ const createDay = async (req, res) => {
     sections: [
       new Section({
         title: 'Plan',
+        isPlan: true,
         tasks: [],
       }),
       new Section({
         title: 'In the morning',
+        isPlan: false,
         tasks: [],
       }),
       new Section({
         title: 'In the afternoon',
+        isPlan: false,
         tasks: [],
       }),
     ],
