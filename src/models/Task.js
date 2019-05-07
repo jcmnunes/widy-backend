@@ -19,6 +19,10 @@ const taskSchema = new mongoose.Schema(
       type: Date,
       default: null,
     },
+    completed: {
+      type: Boolean,
+      default: false,
+    },
   },
   /* gives us "createdAt" and "updatedAt" fields automatically */
   { timestamps: true },
