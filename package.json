@@ -9,7 +9,9 @@
   },
   "scripts": {
     "start": "nodemon index.js",
-    "prod": "node index.js"
+    "prod": "node index.js",
+    "sample": "node ./src/data/load-sample-data.js",
+    "delete": "node ./src/data/load-sample-data.js --delete"
   },
   "author": "Jose Nunes",
   "license": "MIT",
