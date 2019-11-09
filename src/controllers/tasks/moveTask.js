@@ -11,7 +11,7 @@ const validate = body => {
     fromSectionId: Joi.objectId().required(),
     toSectionId: Joi.objectId().required(),
     fromIndex: Joi.number().required(),
-    toIndex: Joi.number().required(),
+    toIndex: Joi.number().required().allow(null),
   };
 
   return Joi.validate(body, schema);
@@ -55,7 +55,13 @@ const moveTask = async (req, res) => {
       task.start = null;
     }
     fromSection.tasks = remove(fromSection.tasks, fromIndex);
-    toSection.tasks = insert(toSection.tasks, toIndex, task);
+
+    // If toIndex is not specified ➜ append the task
+    if (toIndex === null) {
+      toSection.tasks = [...toSection.tasks, task];  
+    } else {
+      toSection.tasks = insert(toSection.tasks, toIndex, task);
+    }
   }
 
   await day.save();
