@@ -28,6 +28,26 @@ const userSchema = new mongoose.Schema(
     },
     resetPasswordToken: String,
     resetPasswordExpires: Date,
+    settings: {
+      pomodoro: {
+        pomodoroLength: {
+          type: Number,
+          default: 25,
+        },
+        shortBreak: {
+          type: Number,
+          default: 5,
+        },
+        longBreak: {
+          type: Number,
+          default: 15,
+        },
+        longBreakAfter: {
+          type: Number,
+          default: 4,
+        },
+      },
+    },
   },
   /* gives us "createdAt" and "updatedAt" fields automatically */
   { timestamps: true },
