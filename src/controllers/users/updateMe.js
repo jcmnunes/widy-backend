@@ -3,14 +3,16 @@ const Joi = require('joi');
 
 const validate = body => {
   const schema = {
-    firstName: Joi.string()
-      .min(1)
-      .max(255)
-      .required(),
-    lastName: Joi.string()
-      .min(1)
-      .max(255)
-      .required(),
+    accountSettings: Joi.object().keys({
+      firstName: Joi.string()
+        .min(1)
+        .max(255)
+        .required(),
+      lastName: Joi.string()
+        .min(1)
+        .max(255)
+        .required(),
+    }),
   };
 
   return Joi.validate(body, schema);
@@ -25,7 +27,11 @@ const updateMe = async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).json({ error: error.details[0].message });
 
-  const { firstName, lastName } = req.body;
+  const {
+    body: {
+      accountSettings: { firstName, lastName },
+    },
+  } = req;
 
   const user = await User.findById(req.userId);
 
