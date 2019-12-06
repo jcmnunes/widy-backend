@@ -7,7 +7,7 @@ const validate = body => {
   const schema = {
     firstName: Joi.string()
       .min(1)
-      .max(50)
+      .max(255)
       .required(),
     lastName: Joi.string()
       .min(1)
