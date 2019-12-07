@@ -9,5 +9,6 @@ router.get('/logout', authControllers.logout);
 router.get('/check', requireLogin, authControllers.check);
 router.post('/forgot', catchErrors(authControllers.forgot));
 router.post('/reset', confirmPasswords, catchErrors(authControllers.reset));
+router.post('/change', requireLogin, confirmPasswords, catchErrors(authControllers.change));
 
 module.exports = router;
