@@ -5,9 +5,13 @@ const _ = require('lodash');
 
 const validate = body => {
   const schema = {
-    name: Joi.string()
-      .min(5)
-      .max(50)
+    firstName: Joi.string()
+      .min(1)
+      .max(255)
+      .required(),
+    lastName: Joi.string()
+      .min(1)
+      .max(255)
       .required(),
     email: Joi.string()
       .min(5)
@@ -35,13 +39,13 @@ const registerUser = async (req, res) => {
   let user = await User.findOne({ email: req.body.email });
   if (user) return res.status(400).send('User already registered.');
 
-  user = new User(_.pick(req.body, ['name', 'email', 'password']));
+  user = new User(_.pick(req.body, ['firstName', 'lastName', 'email', 'password']));
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(user.password, salt);
   await user.save();
 
   user.generateAuthToken(res);
-  res.send(_.pick(user, ['_id', 'name', 'email']));
+  res.send(_.pick(user, ['_id', 'firstName', 'lastName', 'email']));
 };
 
 module.exports = registerUser;

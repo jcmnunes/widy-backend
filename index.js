@@ -18,6 +18,7 @@ const auth = require('./src/routes/auth');
 const users = require('./src/routes/users');
 const days = require('./src/routes/days');
 const tasks = require('./src/routes/tasks');
+const settings = require('./src/routes/settings');
 
 const mongooseOptions = {
   useNewUrlParser: true,
@@ -47,6 +48,7 @@ app.use('/api/auth', auth);
 app.use('/api/users', users);
 app.use('/api/days', days);
 app.use('/api/tasks', tasks);
+app.use('/api/settings', settings);
 
 if (!dev) {
   app.use(express.static('../widy-frontend/build'));

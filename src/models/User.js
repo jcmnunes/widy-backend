@@ -13,11 +13,18 @@ const userSchema = new mongoose.Schema(
       minlength: 5,
       maxlength: 255,
     },
-    name: {
+    firstName: {
       type: String,
       trim: true,
-      minlength: 5,
-      maxlength: 50,
+      minlength: 1,
+      maxlength: 255,
+      required: true,
+    },
+    lastName: {
+      type: String,
+      trim: true,
+      minlength: 1,
+      maxlength: 255,
       required: true,
     },
     password: {
@@ -28,6 +35,26 @@ const userSchema = new mongoose.Schema(
     },
     resetPasswordToken: String,
     resetPasswordExpires: Date,
+    settings: {
+      pomodoro: {
+        pomodoroLength: {
+          type: Number,
+          default: 25,
+        },
+        shortBreak: {
+          type: Number,
+          default: 5,
+        },
+        longBreak: {
+          type: Number,
+          default: 15,
+        },
+        longBreakAfter: {
+          type: Number,
+          default: 4,
+        },
+      },
+    },
   },
   /* gives us "createdAt" and "updatedAt" fields automatically */
   { timestamps: true },
