@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const mongodbErrorHandler = require('mongoose-mongodb-errors');
 const jwt = require('jsonwebtoken');
+const { scopeSchema } = require('./Scope');
 
 const userSchema = new mongoose.Schema(
   {
@@ -55,6 +56,8 @@ const userSchema = new mongoose.Schema(
         },
       },
     },
+    scopes: [scopeSchema],
+    archivedScopes: [scopeSchema],
   },
   /* gives us "createdAt" and "updatedAt" fields automatically */
   { timestamps: true },
