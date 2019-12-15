@@ -17,6 +17,7 @@ const validate = body => {
       time: Joi.number().required(),
       start: Joi.date().allow(null),
       completed: Joi.boolean(),
+      scopeId: Joi.objectId().allow(null),
     }),
   };
 
