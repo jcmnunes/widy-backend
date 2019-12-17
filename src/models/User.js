@@ -33,9 +33,16 @@ const userSchema = new mongoose.Schema(
       required: true,
       minlength: 5,
       maxlength: 1024,
+      private: true,
     },
-    resetPasswordToken: String,
-    resetPasswordExpires: Date,
+    resetPasswordToken: {
+      type: String,
+      private: true,
+    },
+    resetPasswordExpires: {
+      type: Date,
+      private: true,
+    },
     settings: {
       pomodoro: {
         pomodoroLength: {

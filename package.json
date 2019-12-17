@@ -16,6 +16,7 @@
   "author": "Jose Nunes",
   "license": "MIT",
   "dependencies": {
+    "@meanie/mongoose-to-json": "^2.4.0",
     "bcrypt": "^3.0.7",
     "compression": "^1.7.4",
     "concurrently": "^5.0.0",

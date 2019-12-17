@@ -52,7 +52,7 @@ const updateScope = async (req, res) => {
   scope.set({ name, shortCode });
 
   await user.save();
-  res.json({ message: '🥑' });
+  res.json(scope);
 };
 
 module.exports = updateScope;
