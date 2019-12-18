@@ -49,10 +49,21 @@ const updateScope = async (req, res) => {
   }
 
   const scope = user.scopes.id(id);
-  scope.set({ name, shortCode });
+  const archivedScope = user.archivedScopes.id(id);
 
-  await user.save();
-  res.json(scope);
+  if (scope) {
+    scope.set({ name, shortCode });
+    await user.save();
+    res.json(scope);
+  }
+
+  if (archivedScope) {
+    archivedScope.set({ name, shortCode });
+    await user.save();
+    res.json(archivedScope);
+  }
+
+  res.status(404).json({ error: 'Scope not found ' });
 };
 
 module.exports = updateScope;

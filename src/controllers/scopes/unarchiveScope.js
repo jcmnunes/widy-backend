@@ -35,7 +35,7 @@ const unarchiveScope = async (req, res) => {
   user.scopes.unshift(archivedScope);
   await user.save();
 
-  res.json({ message: ' 🥑' });
+  res.json(archivedScope);
 };
 
 module.exports = unarchiveScope;
