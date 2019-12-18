@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const mongodbErrorHandler = require('mongoose-mongodb-errors');
 const jwt = require('jsonwebtoken');
+const { scopeSchema } = require('./Scope');
 
 const userSchema = new mongoose.Schema(
   {
@@ -32,9 +33,16 @@ const userSchema = new mongoose.Schema(
       required: true,
       minlength: 5,
       maxlength: 1024,
+      private: true,
     },
-    resetPasswordToken: String,
-    resetPasswordExpires: Date,
+    resetPasswordToken: {
+      type: String,
+      private: true,
+    },
+    resetPasswordExpires: {
+      type: Date,
+      private: true,
+    },
     settings: {
       pomodoro: {
         pomodoroLength: {
@@ -55,6 +63,8 @@ const userSchema = new mongoose.Schema(
         },
       },
     },
+    scopes: [scopeSchema],
+    archivedScopes: [scopeSchema],
   },
   /* gives us "createdAt" and "updatedAt" fields automatically */
   { timestamps: true },

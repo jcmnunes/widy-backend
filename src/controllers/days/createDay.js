@@ -46,7 +46,7 @@ const createDay = async (req, res) => {
     belongsTo: req.userId,
   });
   const { _id, day: savedDay } = await newDay.save();
-  res.json({ day: { _id, day: savedDay }, message: '🥑' });
+  res.json({ day: { id: _id, day: savedDay }, message: '🥑' });
 };
 
 module.exports = createDay;

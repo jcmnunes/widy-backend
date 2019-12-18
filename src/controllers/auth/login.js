@@ -34,13 +34,7 @@ const login = async (req, res) => {
   if (!validPassword) return res.status(400).send('Invalid email or password.');
 
   user.generateAuthToken(res);
-  res.send({
-    firstName: user.firstName,
-    lastName: user.lastName,
-    email: user.email,
-    settings: user.settings,
-    _id: user._id,
-  });
+  res.json(user);
 };
 
 module.exports = login;

@@ -23,6 +23,10 @@ const taskSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    scopeId: {
+      type: mongoose.Schema.Types.ObjectId,
+      default: null,
+    },
   },
   /* gives us "createdAt" and "updatedAt" fields automatically */
   { timestamps: true },
