@@ -2,13 +2,18 @@ const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const compression = require('compression');
+const toJson = require('@meanie/mongoose-to-json');
 const handleErrors = require('./src/middlewares/handleErrors');
+
 var cookieParser = require('cookie-parser');
 require('dotenv').config();
 
 const dev = process.env.NODE_ENV !== 'production';
 const port = process.env.PORT;
 const ROOT_URL = `http://localhost:${port}`;
+
+// Strip _id (send id instead) and __v from responses
+mongoose.plugin(toJson);
 
 // Models
 require('./src/models/User');
@@ -26,6 +31,7 @@ const mongooseOptions = {
   useCreateIndex: true,
   useFindAndModify: false,
 };
+
 // eslint-disable-next-line no-console
 mongoose.connect(process.env.MONGO_URI, mongooseOptions).then(() => console.log('DB connected'));
 mongoose.connection.on('error', err => {

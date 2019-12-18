@@ -6,8 +6,8 @@ const { User } = require('../../models/User');
  * endpoint ➜ GET /api/users/me
  */
 const getMe = async (req, res) => {
-  const user = await User.findById(req.userId).select('-password -__v');
-  res.send(user);
+  const user = await User.findById(req.userId);
+  res.json(user);
 };
 
 module.exports = getMe;

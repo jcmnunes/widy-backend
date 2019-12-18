@@ -9,7 +9,7 @@ const getDays = async (req, res) => {
   const days = await Day.find({ belongsTo: req.userId })
     .select('day')
     .sort({ day: 'desc' });
-  res.send(days);
+  res.json(days);
 };
 
 module.exports = getDays;

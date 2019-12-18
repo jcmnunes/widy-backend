@@ -35,7 +35,7 @@ const archiveScope = async (req, res) => {
   user.archivedScopes.unshift(scope);
   await user.save();
 
-  res.json({ message: ' 🥑' });
+  res.json(scope);
 };
 
 module.exports = archiveScope;

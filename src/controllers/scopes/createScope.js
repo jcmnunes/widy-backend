@@ -1,6 +1,7 @@
 const Joi = require('joi');
 const { User } = require('../../models/User');
 const { Scope } = require('../../models/Scope');
+const { validateScope } = require('../../helpers/validateScope');
 
 const validate = body => {
   const schema = {
@@ -28,22 +29,17 @@ const createScope = async (req, res) => {
   const user = await User.findById(userId);
   const { scopes, archivedScopes } = user;
 
-  for (const scope of scopes) {
-    if (name.toLowerCase().trim() === scope.name.toLowerCase()) {
-      return res.status(400).json({ message: 'Scope name exists.' });
-    }
-    if (shortCode.toLowerCase().trim() === scope.shortCode.toLowerCase()) {
-      return res.status(400).json({ message: 'Scope code exists.' });
-    }
-  }
+  // Check if scope name and code already exists
+  const validationError = validateScope({
+    name,
+    shortCode,
+    scopes,
+    archivedScopes,
+    res,
+  });
 
-  for (const archivedScope of archivedScopes) {
-    if (archivedScope.name.toLowerCase().trim() === name.toLowerCase()) {
-      return res.status(400).json({ message: 'Scope name exists and is archived.' });
-    }
-    if (archivedScope.shortCode.toLowerCase().trim() === shortCode.toLowerCase()) {
-      return res.status(400).json({ message: 'Scope code exists and is archived.' });
-    }
+  if (validationError) {
+    return res.status(400).json(validationError);
   }
 
   const newScope = new Scope({ name, shortCode });
