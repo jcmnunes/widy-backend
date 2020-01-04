@@ -3,6 +3,6 @@ const reportController = require('../controllers/report');
 const catchErrors = require('../middlewares/catchErrors');
 const requireLogin = require('../middlewares/requireLogin');
 
-router.get('/', requireLogin, catchErrors(reportController.getReport));
+router.get('/:dayId', requireLogin, catchErrors(reportController.getReport));
 
 module.exports = router;
