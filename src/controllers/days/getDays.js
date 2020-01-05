@@ -1,9 +1,9 @@
 const { Day } = require('../../models/Day');
 
 /**
- * Gets a day by Id
+ * Gets a list of days
  *
- * endpoint ➜ GET /api/days/:id
+ * endpoint ➜ GET /api/days
  */
 const getDays = async (req, res) => {
   const days = await Day.find({ belongsTo: req.userId })
