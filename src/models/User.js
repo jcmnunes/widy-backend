@@ -76,6 +76,7 @@ userSchema.plugin(mongodbErrorHandler);
 userSchema.methods.generateAuthToken = function(res, days = 60) {
   const token = jwt.sign({ id: this._id }, process.env.APP_SECRET, { expiresIn: `${days}d` });
   res.cookie(process.env.COOKIE_KEY, token, {
+    secure: process.env.NODE_ENV === 'production',
     httpOnly: true,
     maxAge: 1000 * 60 * 60 * 24 * days,
   });

@@ -25,6 +25,7 @@ const days = require('./src/routes/days');
 const tasks = require('./src/routes/tasks');
 const settings = require('./src/routes/settings');
 const scopes = require('./src/routes/scopes');
+const report = require('./src/routes/report');
 
 const mongooseOptions = {
   useNewUrlParser: true,
@@ -57,6 +58,7 @@ app.use('/api/days', days);
 app.use('/api/tasks', tasks);
 app.use('/api/settings', settings);
 app.use('/api/scopes', scopes);
+app.use('/api/report', report);
 
 if (!dev) {
   app.use(express.static('../widy-frontend/build'));
